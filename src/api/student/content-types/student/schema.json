@@ -1,0 +1,48 @@
+{
+  "kind": "collectionType",
+  "collectionName": "students",
+  "info": {
+    "singularName": "student",
+    "pluralName": "students",
+    "displayName": "student"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "fname": {
+      "type": "string"
+    },
+    "lname": {
+      "type": "string"
+    },
+    "mname": {
+      "type": "string"
+    },
+    "birth": {
+      "type": "string"
+    },
+    "mobile": {
+      "type": "string"
+    },
+    "address": {
+      "type": "string"
+    },
+    "gender": {
+      "type": "string"
+    },
+    "year": {
+      "type": "string"
+    },
+    "enroll_students": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::enroll-student.enroll-student",
+      "mappedBy": "student"
+    }
+  }
+}

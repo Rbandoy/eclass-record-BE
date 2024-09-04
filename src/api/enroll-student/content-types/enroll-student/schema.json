@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "enroll_students",
+  "info": {
+    "singularName": "enroll-student",
+    "pluralName": "enroll-students",
+    "displayName": "enroll_student",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "student": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::student.student",
+      "inversedBy": "enroll_students"
+    },
+    "status": {
+      "type": "string"
+    },
+    "users_permissions_user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "enroll_students"
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "kind": "collectionType",
+  "collectionName": "instructors",
+  "info": {
+    "singularName": "instructor",
+    "pluralName": "instructors",
+    "displayName": "instructor",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "fname": {
+      "type": "string"
+    },
+    "lname": {
+      "type": "string"
+    },
+    "mname": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "password": {
+      "type": "password"
+    }
+  }
+}
