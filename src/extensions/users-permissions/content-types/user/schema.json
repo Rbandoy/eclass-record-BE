@@ -65,12 +65,6 @@
       "inversedBy": "users",
       "configurable": false
     },
-    "enroll_students": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::enroll-student.enroll-student",
-      "mappedBy": "users_permissions_user"
-    },
     "fname": {
       "type": "string"
     },
@@ -91,6 +85,15 @@
     },
     "phone_no": {
       "type": "string"
+    },
+    "profilePicture": {
+      "type": "text"
+    },
+    "student": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::student.student",
+      "inversedBy": "users"
     }
   }
 }

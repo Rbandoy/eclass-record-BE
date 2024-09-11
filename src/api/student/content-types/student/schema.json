@@ -4,15 +4,17 @@
   "info": {
     "singularName": "student",
     "pluralName": "students",
-    "displayName": "student"
+    "displayName": "student",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
   },
   "pluginOptions": {},
   "attributes": {
-    "name": {
-      "type": "string"
+    "student_id": {
+      "type": "string",
+      "unique": true
     },
     "fname": {
       "type": "string"
@@ -23,7 +25,7 @@
     "mname": {
       "type": "string"
     },
-    "birth": {
+    "bdate": {
       "type": "string"
     },
     "mobile": {
@@ -42,6 +44,18 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::enroll-student.enroll-student",
+      "mappedBy": "student"
+    },
+    "email": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "users": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "plugin::users-permissions.user",
       "mappedBy": "student"
     }
   }

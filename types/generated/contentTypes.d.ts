@@ -362,161 +362,6 @@ export interface AdminTransferTokenPermission extends Schema.CollectionType {
   };
 }
 
-export interface ApiEnrollStudentEnrollStudent extends Schema.CollectionType {
-  collectionName: 'enroll_students';
-  info: {
-    singularName: 'enroll-student';
-    pluralName: 'enroll-students';
-    displayName: 'enroll_student';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    student: Attribute.Relation<
-      'api::enroll-student.enroll-student',
-      'manyToOne',
-      'api::student.student'
-    >;
-    status: Attribute.String;
-    users_permissions_user: Attribute.Relation<
-      'api::enroll-student.enroll-student',
-      'manyToOne',
-      'plugin::users-permissions.user'
-    >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::enroll-student.enroll-student',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::enroll-student.enroll-student',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiInstructorInstructor extends Schema.CollectionType {
-  collectionName: 'instructors';
-  info: {
-    singularName: 'instructor';
-    pluralName: 'instructors';
-    displayName: 'instructor';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    fname: Attribute.String;
-    lname: Attribute.String;
-    mname: Attribute.String;
-    type: Attribute.String;
-    status: Attribute.String;
-    password: Attribute.Password;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::instructor.instructor',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::instructor.instructor',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiStudentStudent extends Schema.CollectionType {
-  collectionName: 'students';
-  info: {
-    singularName: 'student';
-    pluralName: 'students';
-    displayName: 'student';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    name: Attribute.String;
-    fname: Attribute.String;
-    lname: Attribute.String;
-    mname: Attribute.String;
-    birth: Attribute.String;
-    mobile: Attribute.String;
-    address: Attribute.String;
-    gender: Attribute.String;
-    year: Attribute.String;
-    enroll_students: Attribute.Relation<
-      'api::student.student',
-      'oneToMany',
-      'api::enroll-student.enroll-student'
-    >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::student.student',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::student.student',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiSubjectSubject extends Schema.CollectionType {
-  collectionName: 'subjects';
-  info: {
-    singularName: 'subject';
-    pluralName: 'subjects';
-    displayName: 'program';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    description: Attribute.String;
-    code: Attribute.String;
-    sy: Attribute.String;
-    sem: Attribute.String;
-    units: Attribute.Integer;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::subject.subject',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::subject.subject',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
 export interface PluginUploadFile extends Schema.CollectionType {
   collectionName: 'files';
   info: {
@@ -878,11 +723,6 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'manyToOne',
       'plugin::users-permissions.role'
     >;
-    enroll_students: Attribute.Relation<
-      'plugin::users-permissions.user',
-      'oneToMany',
-      'api::enroll-student.enroll-student'
-    >;
     fname: Attribute.String;
     lname: Attribute.String;
     mname: Attribute.String;
@@ -890,6 +730,12 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
     bdate: Attribute.String;
     address: Attribute.String;
     phone_no: Attribute.String;
+    profilePicture: Attribute.Text;
+    student: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'manyToOne',
+      'api::student.student'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -954,6 +800,234 @@ export interface PluginI18NLocale extends Schema.CollectionType {
   };
 }
 
+export interface ApiAssignedProgramAssignedProgram
+  extends Schema.CollectionType {
+  collectionName: 'assigned_programs';
+  info: {
+    singularName: 'assigned-program';
+    pluralName: 'assigned-programs';
+    displayName: 'assignedProgram';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    instructor_id: Attribute.String;
+    program_id: Attribute.String;
+    status: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::assigned-program.assigned-program',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::assigned-program.assigned-program',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiEnrollStudentEnrollStudent extends Schema.CollectionType {
+  collectionName: 'enroll_students';
+  info: {
+    singularName: 'enroll-student';
+    pluralName: 'enroll-students';
+    displayName: 'enroll_student';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    student: Attribute.Relation<
+      'api::enroll-student.enroll-student',
+      'manyToOne',
+      'api::student.student'
+    >;
+    status: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::enroll-student.enroll-student',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::enroll-student.enroll-student',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiGradingGrading extends Schema.CollectionType {
+  collectionName: 'gradings';
+  info: {
+    singularName: 'grading';
+    pluralName: 'gradings';
+    displayName: 'Grading';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    program_code: Attribute.String;
+    instructor_id: Attribute.String;
+    quiz: Attribute.JSON;
+    laboratory: Attribute.JSON;
+    exam: Attribute.JSON;
+    student_id: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::grading.grading',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::grading.grading',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiInstructorInstructor extends Schema.CollectionType {
+  collectionName: 'instructors';
+  info: {
+    singularName: 'instructor';
+    pluralName: 'instructors';
+    displayName: 'instructor';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    fname: Attribute.String;
+    lname: Attribute.String;
+    mname: Attribute.String;
+    type: Attribute.String;
+    status: Attribute.String;
+    password: Attribute.Password;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::instructor.instructor',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::instructor.instructor',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiStudentStudent extends Schema.CollectionType {
+  collectionName: 'students';
+  info: {
+    singularName: 'student';
+    pluralName: 'students';
+    displayName: 'student';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    student_id: Attribute.String & Attribute.Unique;
+    fname: Attribute.String;
+    lname: Attribute.String;
+    mname: Attribute.String;
+    bdate: Attribute.String;
+    mobile: Attribute.String;
+    address: Attribute.String;
+    gender: Attribute.String;
+    year: Attribute.String;
+    enroll_students: Attribute.Relation<
+      'api::student.student',
+      'oneToMany',
+      'api::enroll-student.enroll-student'
+    >;
+    email: Attribute.String;
+    status: Attribute.String;
+    users: Attribute.Relation<
+      'api::student.student',
+      'oneToMany',
+      'plugin::users-permissions.user'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::student.student',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::student.student',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiSubjectSubject extends Schema.CollectionType {
+  collectionName: 'subjects';
+  info: {
+    singularName: 'subject';
+    pluralName: 'subjects';
+    displayName: 'program';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    description: Attribute.String;
+    code: Attribute.String;
+    sy: Attribute.String;
+    sem: Attribute.String;
+    units: Attribute.Integer;
+    status: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::subject.subject',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::subject.subject',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -964,10 +1038,6 @@ declare module '@strapi/types' {
       'admin::api-token-permission': AdminApiTokenPermission;
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
-      'api::enroll-student.enroll-student': ApiEnrollStudentEnrollStudent;
-      'api::instructor.instructor': ApiInstructorInstructor;
-      'api::student.student': ApiStudentStudent;
-      'api::subject.subject': ApiSubjectSubject;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;
@@ -976,6 +1046,12 @@ declare module '@strapi/types' {
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'plugin::i18n.locale': PluginI18NLocale;
+      'api::assigned-program.assigned-program': ApiAssignedProgramAssignedProgram;
+      'api::enroll-student.enroll-student': ApiEnrollStudentEnrollStudent;
+      'api::grading.grading': ApiGradingGrading;
+      'api::instructor.instructor': ApiInstructorInstructor;
+      'api::student.student': ApiStudentStudent;
+      'api::subject.subject': ApiSubjectSubject;
     }
   }
 }

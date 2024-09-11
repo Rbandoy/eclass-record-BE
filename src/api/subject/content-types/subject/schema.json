@@ -26,6 +26,9 @@
     },
     "units": {
       "type": "integer"
+    },
+    "status": {
+      "type": "string"
     }
   }
 }
