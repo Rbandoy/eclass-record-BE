@@ -54,8 +54,20 @@
     },
     "users": {
       "type": "relation",
-      "relation": "oneToMany",
+      "relation": "manyToMany",
       "target": "plugin::users-permissions.user",
+      "mappedBy": "students"
+    },
+    "programs": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::subject.subject",
+      "inversedBy": "students"
+    },
+    "enrolled_student": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::grading.grading",
       "mappedBy": "student"
     }
   }

@@ -89,9 +89,9 @@
     "profilePicture": {
       "type": "text"
     },
-    "student": {
+    "students": {
       "type": "relation",
-      "relation": "manyToOne",
+      "relation": "manyToMany",
       "target": "api::student.student",
       "inversedBy": "users"
     }

@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "exams",
+  "info": {
+    "singularName": "exam",
+    "pluralName": "exams",
+    "displayName": "exam"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "quarter": {
+      "type": "string"
+    },
+    "items": {
+      "type": "string"
+    },
+    "program_code": {
+      "type": "string"
+    },
+    "instructor_id": {
+      "type": "string"
+    }
+  }
+}

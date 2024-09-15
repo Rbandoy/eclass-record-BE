@@ -29,6 +29,24 @@
     },
     "status": {
       "type": "string"
+    },
+    "quizzes": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::quiz.quiz",
+      "inversedBy": "programs"
+    },
+    "gradings": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::grading.grading",
+      "mappedBy": "programs"
+    },
+    "students": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::student.student",
+      "mappedBy": "programs"
     }
   }
 }

@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "gradings",
+  "collectionName": "quizzes",
   "info": {
-    "singularName": "grading",
-    "pluralName": "gradings",
-    "displayName": "enrolled_student",
+    "singularName": "quiz",
+    "pluralName": "quizzes",
+    "displayName": "quiz",
     "description": ""
   },
   "options": {
@@ -12,38 +12,32 @@
   },
   "pluginOptions": {},
   "attributes": {
+    "quizTitle": {
+      "type": "string"
+    },
+    "items": {
+      "type": "string"
+    },
+    "quarter": {
+      "type": "string"
+    },
     "program_code": {
       "type": "string"
     },
     "instructor_id": {
       "type": "string"
     },
-    "laboratory": {
-      "type": "json"
-    },
-    "exam": {
-      "type": "json"
-    },
-    "student_id": {
-      "type": "string"
-    },
     "programs": {
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::subject.subject",
-      "inversedBy": "gradings"
+      "mappedBy": "quizzes"
     },
     "grades": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::grade.grade",
-      "mappedBy": "enrolled_student"
-    },
-    "student": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::student.student",
-      "inversedBy": "enrolled_student"
+      "mappedBy": "quiz"
     }
   }
 }

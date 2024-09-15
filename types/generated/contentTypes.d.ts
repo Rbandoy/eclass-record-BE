@@ -731,9 +731,9 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
     address: Attribute.String;
     phone_no: Attribute.String;
     profilePicture: Attribute.Text;
-    student: Attribute.Relation<
+    students: Attribute.Relation<
       'plugin::users-permissions.user',
-      'manyToOne',
+      'manyToMany',
       'api::student.student'
     >;
     createdAt: Attribute.DateTime;
@@ -869,12 +869,79 @@ export interface ApiEnrollStudentEnrollStudent extends Schema.CollectionType {
   };
 }
 
+export interface ApiExamExam extends Schema.CollectionType {
+  collectionName: 'exams';
+  info: {
+    singularName: 'exam';
+    pluralName: 'exams';
+    displayName: 'exam';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    quarter: Attribute.String;
+    items: Attribute.String;
+    program_code: Attribute.String;
+    instructor_id: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::exam.exam', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::exam.exam', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
+export interface ApiGradeGrade extends Schema.CollectionType {
+  collectionName: 'grades';
+  info: {
+    singularName: 'grade';
+    pluralName: 'grades';
+    displayName: 'Grade';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    student_id: Attribute.String;
+    score: Attribute.String;
+    type: Attribute.String;
+    quarter: Attribute.String;
+    program_code: Attribute.String;
+    instructor_id: Attribute.String;
+    enrolled_student: Attribute.Relation<
+      'api::grade.grade',
+      'manyToOne',
+      'api::grading.grading'
+    >;
+    quiz: Attribute.Relation<'api::grade.grade', 'manyToOne', 'api::quiz.quiz'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::grade.grade',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::grade.grade',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiGradingGrading extends Schema.CollectionType {
   collectionName: 'gradings';
   info: {
     singularName: 'grading';
     pluralName: 'gradings';
-    displayName: 'Grading';
+    displayName: 'enrolled_student';
     description: '';
   };
   options: {
@@ -883,10 +950,24 @@ export interface ApiGradingGrading extends Schema.CollectionType {
   attributes: {
     program_code: Attribute.String;
     instructor_id: Attribute.String;
-    quiz: Attribute.JSON;
     laboratory: Attribute.JSON;
     exam: Attribute.JSON;
     student_id: Attribute.String;
+    programs: Attribute.Relation<
+      'api::grading.grading',
+      'manyToMany',
+      'api::subject.subject'
+    >;
+    grades: Attribute.Relation<
+      'api::grading.grading',
+      'oneToMany',
+      'api::grade.grade'
+    >;
+    student: Attribute.Relation<
+      'api::grading.grading',
+      'oneToOne',
+      'api::student.student'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -941,6 +1022,43 @@ export interface ApiInstructorInstructor extends Schema.CollectionType {
   };
 }
 
+export interface ApiQuizQuiz extends Schema.CollectionType {
+  collectionName: 'quizzes';
+  info: {
+    singularName: 'quiz';
+    pluralName: 'quizzes';
+    displayName: 'quiz';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    quizTitle: Attribute.String;
+    items: Attribute.String;
+    quarter: Attribute.String;
+    program_code: Attribute.String;
+    instructor_id: Attribute.String;
+    programs: Attribute.Relation<
+      'api::quiz.quiz',
+      'manyToMany',
+      'api::subject.subject'
+    >;
+    grades: Attribute.Relation<
+      'api::quiz.quiz',
+      'oneToMany',
+      'api::grade.grade'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::quiz.quiz', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::quiz.quiz', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
 export interface ApiStudentStudent extends Schema.CollectionType {
   collectionName: 'students';
   info: {
@@ -971,8 +1089,18 @@ export interface ApiStudentStudent extends Schema.CollectionType {
     status: Attribute.String;
     users: Attribute.Relation<
       'api::student.student',
-      'oneToMany',
+      'manyToMany',
       'plugin::users-permissions.user'
+    >;
+    programs: Attribute.Relation<
+      'api::student.student',
+      'manyToMany',
+      'api::subject.subject'
+    >;
+    enrolled_student: Attribute.Relation<
+      'api::student.student',
+      'oneToOne',
+      'api::grading.grading'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -1010,6 +1138,21 @@ export interface ApiSubjectSubject extends Schema.CollectionType {
     sem: Attribute.String;
     units: Attribute.Integer;
     status: Attribute.String;
+    quizzes: Attribute.Relation<
+      'api::subject.subject',
+      'manyToMany',
+      'api::quiz.quiz'
+    >;
+    gradings: Attribute.Relation<
+      'api::subject.subject',
+      'manyToMany',
+      'api::grading.grading'
+    >;
+    students: Attribute.Relation<
+      'api::subject.subject',
+      'manyToMany',
+      'api::student.student'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1048,8 +1191,11 @@ declare module '@strapi/types' {
       'plugin::i18n.locale': PluginI18NLocale;
       'api::assigned-program.assigned-program': ApiAssignedProgramAssignedProgram;
       'api::enroll-student.enroll-student': ApiEnrollStudentEnrollStudent;
+      'api::exam.exam': ApiExamExam;
+      'api::grade.grade': ApiGradeGrade;
       'api::grading.grading': ApiGradingGrading;
       'api::instructor.instructor': ApiInstructorInstructor;
+      'api::quiz.quiz': ApiQuizQuiz;
       'api::student.student': ApiStudentStudent;
       'api::subject.subject': ApiSubjectSubject;
     }

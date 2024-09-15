@@ -1,0 +1,46 @@
+{
+  "kind": "collectionType",
+  "collectionName": "grades",
+  "info": {
+    "singularName": "grade",
+    "pluralName": "grades",
+    "displayName": "Grade",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "student_id": {
+      "type": "string"
+    },
+    "score": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    },
+    "quarter": {
+      "type": "string"
+    },
+    "program_code": {
+      "type": "string"
+    },
+    "instructor_id": {
+      "type": "string"
+    },
+    "enrolled_student": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::grading.grading",
+      "inversedBy": "grades"
+    },
+    "quiz": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::quiz.quiz",
+      "inversedBy": "grades"
+    }
+  }
+}
