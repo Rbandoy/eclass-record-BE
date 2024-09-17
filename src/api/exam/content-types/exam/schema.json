@@ -22,6 +22,12 @@
     },
     "instructor_id": {
       "type": "string"
+    },
+    "programs": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::subject.subject",
+      "mappedBy": "exams"
     }
   }
 }

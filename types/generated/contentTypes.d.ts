@@ -884,6 +884,11 @@ export interface ApiExamExam extends Schema.CollectionType {
     items: Attribute.String;
     program_code: Attribute.String;
     instructor_id: Attribute.String;
+    programs: Attribute.Relation<
+      'api::exam.exam',
+      'manyToMany',
+      'api::subject.subject'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1152,6 +1157,11 @@ export interface ApiSubjectSubject extends Schema.CollectionType {
       'api::subject.subject',
       'manyToMany',
       'api::student.student'
+    >;
+    exams: Attribute.Relation<
+      'api::subject.subject',
+      'manyToMany',
+      'api::exam.exam'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
