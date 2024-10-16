@@ -736,6 +736,7 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'manyToMany',
       'api::student.student'
     >;
+    activated: Attribute.Boolean;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -899,6 +900,39 @@ export interface ApiExamExam extends Schema.CollectionType {
   };
 }
 
+export interface ApiFileuploadFileupload extends Schema.CollectionType {
+  collectionName: 'fileuploads';
+  info: {
+    singularName: 'fileupload';
+    pluralName: 'fileuploads';
+    displayName: 'fileupload';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    excelfile: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    instrutor_id: Attribute.String;
+    program_code: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::fileupload.fileupload',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::fileupload.fileupload',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiGradeGrade extends Schema.CollectionType {
   collectionName: 'grades';
   info: {
@@ -934,6 +968,50 @@ export interface ApiGradeGrade extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::grade.grade',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiGradeMasterlistGradeMasterlist
+  extends Schema.CollectionType {
+  collectionName: 'grade_masterlists';
+  info: {
+    singularName: 'grade-masterlist';
+    pluralName: 'grade-masterlists';
+    displayName: 'gradeMasterlist';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    subject_no: Attribute.String;
+    semester: Attribute.String;
+    description: Attribute.String;
+    course: Attribute.String;
+    instructor: Attribute.String;
+    student_id: Attribute.String;
+    student_name: Attribute.String;
+    mtg: Attribute.String;
+    ftg: Attribute.String;
+    final: Attribute.String;
+    remarks: Attribute.String;
+    publish: Attribute.String;
+    grade: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::grade-masterlist.grade-masterlist',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::grade-masterlist.grade-masterlist',
       'oneToOne',
       'admin::user'
     > &
@@ -1107,6 +1185,10 @@ export interface ApiStudentStudent extends Schema.CollectionType {
       'oneToOne',
       'api::grading.grading'
     >;
+    activated: Attribute.Boolean;
+    username: Attribute.String;
+    password: Attribute.String;
+    course: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1202,7 +1284,9 @@ declare module '@strapi/types' {
       'api::assigned-program.assigned-program': ApiAssignedProgramAssignedProgram;
       'api::enroll-student.enroll-student': ApiEnrollStudentEnrollStudent;
       'api::exam.exam': ApiExamExam;
+      'api::fileupload.fileupload': ApiFileuploadFileupload;
       'api::grade.grade': ApiGradeGrade;
+      'api::grade-masterlist.grade-masterlist': ApiGradeMasterlistGradeMasterlist;
       'api::grading.grading': ApiGradingGrading;
       'api::instructor.instructor': ApiInstructorInstructor;
       'api::quiz.quiz': ApiQuizQuiz;

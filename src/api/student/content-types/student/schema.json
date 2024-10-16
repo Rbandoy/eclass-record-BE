@@ -69,6 +69,18 @@
       "relation": "oneToOne",
       "target": "api::grading.grading",
       "mappedBy": "student"
+    },
+    "activated": {
+      "type": "boolean"
+    },
+    "username": {
+      "type": "string"
+    },
+    "password": {
+      "type": "string"
+    },
+    "course": {
+      "type": "string"
     }
   }
 }

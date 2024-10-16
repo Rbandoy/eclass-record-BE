@@ -94,6 +94,9 @@
       "relation": "manyToMany",
       "target": "api::student.student",
       "inversedBy": "users"
+    },
+    "activated": {
+      "type": "boolean"
     }
   }
 }

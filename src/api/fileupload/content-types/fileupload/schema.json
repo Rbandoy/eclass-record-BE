@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "fileuploads",
+  "info": {
+    "singularName": "fileupload",
+    "pluralName": "fileuploads",
+    "displayName": "fileupload",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "excelfile": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "instrutor_id": {
+      "type": "string"
+    },
+    "program_code": {
+      "type": "string"
+    }
+  }
+}
