@@ -16,7 +16,6 @@ module.exports = createCoreController('api::student.student', ({ strapi }) => ({
     // Add your custom query conditions for grade-masterlist if necessary
     ctx.query.filters = {
       ...ctx.query.filters,
-      activated: true
     };
 
     // Proceed with fetching the grade-masterlist entries using the core find method
