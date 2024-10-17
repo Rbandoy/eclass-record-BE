@@ -1001,6 +1001,7 @@ export interface ApiGradeMasterlistGradeMasterlist
     remarks: Attribute.String;
     publish: Attribute.String;
     grade: Attribute.String;
+    sy: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1138,6 +1139,38 @@ export interface ApiQuizQuiz extends Schema.CollectionType {
     createdBy: Attribute.Relation<'api::quiz.quiz', 'oneToOne', 'admin::user'> &
       Attribute.Private;
     updatedBy: Attribute.Relation<'api::quiz.quiz', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
+export interface ApiSchoolYearSchoolYear extends Schema.CollectionType {
+  collectionName: 'school_years';
+  info: {
+    singularName: 'school-year';
+    pluralName: 'school-years';
+    displayName: 'schoolYear';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    active: Attribute.Boolean;
+    sem: Attribute.String;
+    year: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::school-year.school-year',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::school-year.school-year',
+      'oneToOne',
+      'admin::user'
+    > &
       Attribute.Private;
   };
 }
@@ -1290,6 +1323,7 @@ declare module '@strapi/types' {
       'api::grading.grading': ApiGradingGrading;
       'api::instructor.instructor': ApiInstructorInstructor;
       'api::quiz.quiz': ApiQuizQuiz;
+      'api::school-year.school-year': ApiSchoolYearSchoolYear;
       'api::student.student': ApiStudentStudent;
       'api::subject.subject': ApiSubjectSubject;
     }

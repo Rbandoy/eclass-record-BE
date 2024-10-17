@@ -50,6 +50,9 @@
     },
     "grade": {
       "type": "string"
+    },
+    "sy": {
+      "type": "string"
     }
   }
 }

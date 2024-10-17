@@ -18,11 +18,13 @@ module.exports = createCoreController('api::grade-masterlist.grade-masterlist', 
       const data = ctx.request.body.data;
 
       // Function to check if a grade entry exists in the grade-masterlist based on both subject_no and student_id
-      const checkGradeMasterlistExists = async (subjectNo, studentId) => {
+      const checkGradeMasterlistExists = async (subjectNo, semester, year, studentId) => {
         return await strapi.entityService.findMany('api::grade-masterlist.grade-masterlist', {
           filters: {
             subject_no: { $eq: subjectNo },
-            student_id: { $eq: studentId }
+            student_id: { $eq: studentId },
+            semester: { $eq: semester },
+            sy: { $eq: year },
           },
         });
       };
@@ -36,8 +38,8 @@ module.exports = createCoreController('api::grade-masterlist.grade-masterlist', 
       };
 
       // Function to delete duplicates based on subject_no and student_id
-      const deleteDuplicates = async (subjectNo, studentId) => {
-        const existingEntries = await checkGradeMasterlistExists(subjectNo, studentId);
+      const deleteDuplicates = async (subjectNo, semester, year, studentId) => {
+        const existingEntries = await checkGradeMasterlistExists(subjectNo, semester, year, studentId);
 
         if (existingEntries.length > 1) {
           // If there are duplicates, keep the first and delete the rest
@@ -57,12 +59,12 @@ module.exports = createCoreController('api::grade-masterlist.grade-masterlist', 
           ctx.throw(400, `Subject with code ${entryData.subject_no} does not exist.`);
         }
 
-        let existingEntry = await checkGradeMasterlistExists(entryData.subject_no, entryData.student_id);
+        let existingEntry = await checkGradeMasterlistExists(entryData.subject_no, entryData.year, entryData.semester, entryData.student_id);
 
         if (existingEntry.length > 0) {
           // Delete any duplicates and return the one entry to update
-          await deleteDuplicates(entryData.subject_no, entryData.student_id);
-          existingEntry = await checkGradeMasterlistExists(entryData.subject_no, entryData.student_id);
+          await deleteDuplicates(entryData.subject_no, entryData.semester, entryData.year, entryData.student_id);
+          existingEntry = await checkGradeMasterlistExists(entryData.subject_no, entryData.semester, entryData.year, entryData.student_id);
 
           // Update the existing entry
           return await strapi.entityService.update('api::grade-masterlist.grade-masterlist', existingEntry[0].id, {

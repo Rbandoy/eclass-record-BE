@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "school_years",
+  "info": {
+    "singularName": "school-year",
+    "pluralName": "school-years",
+    "displayName": "schoolYear"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "active": {
+      "type": "boolean"
+    },
+    "sem": {
+      "type": "string"
+    },
+    "year": {
+      "type": "string"
+    }
+  }
+}
