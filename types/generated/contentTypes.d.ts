@@ -1279,6 +1279,7 @@ export interface ApiSubjectSubject extends Schema.CollectionType {
       'manyToMany',
       'api::exam.exam'
     >;
+    year: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

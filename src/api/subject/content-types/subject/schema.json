@@ -53,6 +53,9 @@
       "relation": "manyToMany",
       "target": "api::exam.exam",
       "inversedBy": "programs"
+    },
+    "year": {
+      "type": "string"
     }
   }
 }
