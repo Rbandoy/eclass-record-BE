@@ -1222,6 +1222,7 @@ export interface ApiStudentStudent extends Schema.CollectionType {
     username: Attribute.String;
     password: Attribute.String;
     course: Attribute.String;
+    telegram: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

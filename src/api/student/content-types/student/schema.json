@@ -81,6 +81,9 @@
     },
     "course": {
       "type": "string"
+    },
+    "telegram": {
+      "type": "string"
     }
   }
 }
