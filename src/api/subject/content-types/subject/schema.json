@@ -56,6 +56,12 @@
     },
     "year": {
       "type": "string"
+    },
+    "laboratory": {
+      "type": "string"
+    },
+    "lecture": {
+      "type": "string"
     }
   }
 }

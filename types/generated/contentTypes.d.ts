@@ -1280,6 +1280,8 @@ export interface ApiSubjectSubject extends Schema.CollectionType {
       'api::exam.exam'
     >;
     year: Attribute.String;
+    laboratory: Attribute.String;
+    lecture: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

@@ -23,9 +23,23 @@ module.exports = {
         },
       });
 
-      const prospectus = await strapi.entityService.findMany('api::subject.subject');
+      const prospectus = await strapi.entityService.findMany('api::subject.subject', {
+        sort: ['code:asc','year:asc', 'sem:asc'],
+      });
 
-      ctx.body = {grades: student_grades, student_info: student_details, prospectos: prospectus}; 
+      console.log(student_grades)
+
+      const programs = prospectus.map(program => {
+        student_grades.forEach(grade => {
+          if (grade.subject_no == program.code && grade.remarks === "PASSED") {
+            program.passed = true
+          }
+        })
+
+        return program
+      })
+
+      ctx.body = {grades: student_grades, student_info: student_details, prospectos: programs}; 
 
     } catch (err) {
       ctx.body = err;
