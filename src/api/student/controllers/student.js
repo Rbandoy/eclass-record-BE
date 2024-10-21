@@ -21,22 +21,32 @@ module.exports = createCoreController('api::student.student', ({ strapi }) => ({
     // Proceed with fetching the grade-masterlist entries using the core find method
     const { data, meta } = await super.find(ctx);
 
+    
     // Fetch related student data for each grade-masterlist entry
     const studentPromises = data.map(async (entry) => {
       const studentId = entry.attributes.student_id; // Assuming student_id is in the entry
       let grades = [];
-
+      let schoolYears = [];
+      let active_evaluation = []
       if (studentId) {
         // Fetch active school year
         const schoolyears = await strapi.entityService.findMany('api::school-year.school-year', {
           filters: { active: { $eq: true } }, // Filter for active school years
         });
+        schoolYears = schoolYears.concat(schoolyears)
         console.log(schoolyears)
         // For each school year, fetch the grades
         for (const item of schoolyears) {
           const gradeData = await strapi.entityService.findMany('api::grade-masterlist.grade-masterlist', {
             filters: { student_id: { $eq: studentId }, sy: { $eq: item.year }, semester: { $eq: item.sem } }, // Use the studentId from the entry 
           });
+
+          const evaluationData = await strapi.entityService.findMany('api::evaluation-result.evaluation-result', {
+            filters: { student_id: { $eq: studentId }, school_year: { $eq: item.year }, sem: { $eq: item.sem } }, // Use the populate: { user: true },
+            populate: { evaluator: true },
+          });
+          console.log(evaluationData, studentId, item.year, item.sem)
+          active_evaluation = active_evaluation.concat(evaluationData)
 
           // If grades exist, extract subject details including units
           if (gradeData.length > 0) {
@@ -68,6 +78,8 @@ module.exports = createCoreController('api::student.student', ({ strapi }) => ({
       return {
         ...entry,
         grades: grades || [], // Add student grades, or an empty array if not found
+        active_evaluation: active_evaluation,
+        school_year: schoolYears[0]
       };
     });
 
@@ -75,6 +87,6 @@ module.exports = createCoreController('api::student.student', ({ strapi }) => ({
     const modifiedData = await Promise.all(studentPromises);
 
     // Return the modified data with the student information included
-    return { data: modifiedData, meta };
+    return { data: modifiedData, meta};
   }
 }));

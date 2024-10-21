@@ -9,5 +9,14 @@ module.exports = {
        middlewares: [],
      },
     },
+    {
+      method: 'POST',
+      path: '/create-evaluation',
+      handler: 'evaluation.createEvaluation',
+      config: {
+        policies: [],
+        middlewares: [],
+      },
+     },
   ],
 };

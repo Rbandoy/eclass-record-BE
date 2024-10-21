@@ -737,6 +737,11 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'api::student.student'
     >;
     activated: Attribute.Boolean;
+    evaluation_results: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::evaluation-result.evaluation-result'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -863,6 +868,53 @@ export interface ApiEnrollStudentEnrollStudent extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::enroll-student.enroll-student',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiEvaluationResultEvaluationResult
+  extends Schema.CollectionType {
+  collectionName: 'evaluation_results';
+  info: {
+    singularName: 'evaluation-result';
+    pluralName: 'evaluation-results';
+    displayName: 'evaluation_result';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    school_year: Attribute.String;
+    sem: Attribute.String;
+    student_id: Attribute.String;
+    subject_code: Attribute.String;
+    description: Attribute.String;
+    laboratory: Attribute.String;
+    lecture: Attribute.String;
+    time: Attribute.String;
+    day: Attribute.String;
+    instructor: Attribute.String;
+    units: Attribute.String;
+    evaluator: Attribute.Relation<
+      'api::evaluation-result.evaluation-result',
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::evaluation-result.evaluation-result',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::evaluation-result.evaluation-result',
       'oneToOne',
       'admin::user'
     > &
@@ -1320,6 +1372,7 @@ declare module '@strapi/types' {
       'plugin::i18n.locale': PluginI18NLocale;
       'api::assigned-program.assigned-program': ApiAssignedProgramAssignedProgram;
       'api::enroll-student.enroll-student': ApiEnrollStudentEnrollStudent;
+      'api::evaluation-result.evaluation-result': ApiEvaluationResultEvaluationResult;
       'api::exam.exam': ApiExamExam;
       'api::fileupload.fileupload': ApiFileuploadFileupload;
       'api::grade.grade': ApiGradeGrade;

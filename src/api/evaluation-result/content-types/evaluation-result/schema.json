@@ -1,0 +1,55 @@
+{
+  "kind": "collectionType",
+  "collectionName": "evaluation_results",
+  "info": {
+    "singularName": "evaluation-result",
+    "pluralName": "evaluation-results",
+    "displayName": "evaluation_result",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "school_year": {
+      "type": "string"
+    },
+    "sem": {
+      "type": "string"
+    },
+    "student_id": {
+      "type": "string"
+    },
+    "subject_code": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "laboratory": {
+      "type": "string"
+    },
+    "lecture": {
+      "type": "string"
+    },
+    "time": {
+      "type": "string"
+    },
+    "day": {
+      "type": "string"
+    },
+    "instructor": {
+      "type": "string"
+    },
+    "units": {
+      "type": "string"
+    },
+    "evaluator": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "evaluation_results"
+    }
+  }
+}
