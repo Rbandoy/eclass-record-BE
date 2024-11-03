@@ -103,6 +103,9 @@
       "relation": "oneToMany",
       "target": "api::evaluation-result.evaluation-result",
       "mappedBy": "evaluator"
+    },
+    "idNo": {
+      "type": "string"
     }
   }
 }
