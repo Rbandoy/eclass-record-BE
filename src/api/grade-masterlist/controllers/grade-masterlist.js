@@ -35,8 +35,9 @@ module.exports = createCoreController('api::grade-masterlist.grade-masterlist', 
           if (studentData[0]?.mobile != "") {
             sendSms(studentData[0].mobile, `
               Hi ${studentData[0].fname} Grades for ${data.subject_no}: ${data.description} is now available. 
-              
+              \n
               Remarks: ${data.remarks}
+              \n
               Final Grade: ${data.final}
               `)
           }
