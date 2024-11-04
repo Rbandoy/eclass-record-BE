@@ -33,7 +33,12 @@ module.exports = createCoreController('api::grade-masterlist.grade-masterlist', 
           });
           console.log('student',studentData)
           if (studentData[0]?.mobile != "") {
-            sendSms(studentData[0].mobile, `Hi ${studentData[0].fname} Grades for ${data.subject_no}: ${data.description} is now available. Remarks: ${data.remarks}`)
+            sendSms(studentData[0].mobile, `
+              Hi ${studentData[0].fname} Grades for ${data.subject_no}: ${data.description} is now available. 
+              
+              Remarks: ${data.remarks}
+              Final Grade: ${data.final}
+              `)
           }
           // const studentTelegram = studentData[0]?.telegram;
           // const chatParticipants = await axios.get(`https://api.telegram.org/bot7932055624:AAE_zqdyp2w45F8ELaeY1vx6FoVCY85W_2c/getUpdates`)
