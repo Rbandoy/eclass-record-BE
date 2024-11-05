@@ -66,7 +66,8 @@ module.exports = createCoreController('api::student.student', ({ strapi }) => ({
                 grade: grade.grade, // Fetch grade from grade-masterlist
                 units: subject ? subject.units : 0, // Fetch units from subject or set to 0 if not found
                 sy: item.year,
-                semester: item.sem
+                semester: item.sem,
+                section: item.section
               };
             }));
 
