@@ -12,6 +12,9 @@ module.exports = createCoreController('api::grade-masterlist.grade-masterlist', 
   // Override the default 'create' method with upsert and duplicate deletion logic
   async create(ctx) {
     const sendSms = async (mobileNo, message) => {
+
+      if (mobileNo == "") return
+
       try { 
         axios.post(`https://api.semaphore.co/api/v4/messages?apikey=616d08668be5f09dead2b65f8ff943de&number=${mobileNo}&message=${message}&sendername`);
         console.log("message sent")
@@ -35,7 +38,7 @@ module.exports = createCoreController('api::grade-masterlist.grade-masterlist', 
           if (studentData[0]?.mobile != "") {
             sendSms(studentData[0].mobile, `Hi ${studentData[0].fname} Grades for ${data.subject_no}: ${data.description} is now available. 
 
-              
+
               \n\nRemarks: ${data.remarks}\n
 
 
