@@ -53,6 +53,9 @@
     },
     "sy": {
       "type": "string"
+    },
+    "section": {
+      "type": "string"
     }
   }
 }

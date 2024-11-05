@@ -1055,6 +1055,7 @@ export interface ApiGradeMasterlistGradeMasterlist
     publish: Attribute.String;
     grade: Attribute.String;
     sy: Attribute.String;
+    section: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
