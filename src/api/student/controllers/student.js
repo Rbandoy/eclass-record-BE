@@ -58,7 +58,7 @@ module.exports = createCoreController('api::student.student', ({ strapi }) => ({
 
               // Get the first matching subject (if exists)
               const subject = subjectData.length > 0 ? subjectData[0] : null;
-
+              console.log(item)
               return {
                 id: grade.id,
                 subject_no: grade.subject_no, // Assuming subject_no exists in grade-masterlist
@@ -67,7 +67,7 @@ module.exports = createCoreController('api::student.student', ({ strapi }) => ({
                 units: subject ? subject.units : 0, // Fetch units from subject or set to 0 if not found
                 sy: item.year,
                 semester: item.sem,
-                section: item.section
+                section: grade.section
               };
             }));
 
