@@ -79,7 +79,7 @@ module.exports = createCoreController('api::student.student', ({ strapi }) => ({
         ...entry,
         grades: grades || [], // Add student grades, or an empty array if not found
         active_evaluation: active_evaluation,
-        school_year: schoolYears[0]
+        school_year: schoolYears
       };
     });
 
